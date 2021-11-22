@@ -1,0 +1,171 @@
+body
+{
+    margin: 0;
+    background-color: rgb(241, 241, 241);
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: 0.35s;
+}
+
+h1
+{
+    font-size: 60px;
+    text-align: center;
+}
+
+p
+{
+    font-size: 20px;
+}
+
+table
+{
+    width: 600px;
+}
+
+.tabellalella table, .tabellalella th, .tabellalella td 
+{
+    margin-top: 30px;
+    border: 0.2px solid rgb(151, 151, 151);
+    padding: 10px;
+}
+
+table, th, td
+{
+    border-collapse: collapse;
+}
+
+th
+{
+    background-color: rgb(151, 151, 151);
+    color: white;
+}
+
+.main-container
+{
+    max-width: 900px;
+    position: absolute;
+    left: calc(50vw - 450px - 40px);
+    padding: 40px;
+    background-color: white;
+    transition: 0.5s;
+    z-index: -1;
+}
+
+a
+{
+    text-decoration: none;
+    color: grey;
+    transition: 0.2s;
+}
+
+h2
+{
+    color: grey;
+    font-size: 20px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+a:hover
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+img
+{
+    max-width: 100%;
+}
+
+.schema
+{
+    max-height: 700px;
+}
+
+.popup
+{
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 50;
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    height: 30px;
+    width: calc(100% - 20px);
+}
+
+.codice-popup
+{
+    overflow-y: hidden;
+    opacity: 0;
+    z-index: -100;
+    transition: 0.25s;
+    width: 700px;
+    position: fixed;
+    padding: 20px;
+    padding-top: 0;
+    left: calc(50vw - 350px - 15px);
+    top: 60px;
+    bottom: 60px;
+    min-height: 500px;
+    background-color: white;
+    border: 0.2px solid rgb(196, 196, 196);
+    overflow-y: hidden;
+}
+
+button
+{
+    outline: none;
+    background-color: transparent;
+    padding: 10px;
+    border: 0.5px solid black;
+    transition: 0.2s;
+}
+
+button:hover
+{
+    cursor: pointer;
+}
+
+.floatn-btn
+{
+    border: none;
+    background-color: white;
+    padding: 20px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+
+@media screen and (max-width:800px) {
+    .main-container
+    {
+        padding: 20px;
+        left: 0;
+    }
+
+    a:hover
+    {
+        text-decoration: none;
+    }
+
+    h1
+    {
+        font-size: 45px;
+    }
+
+    h2
+    {
+        font-size: 20px;
+    }
+    table
+    {
+        width: 100%;
+    }
+
+    .codice-popup
+    {
+        top: 0;
+        left: 0;
+        width: calc(100% - 20px);
+    }
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Levorin Francesco - Relazione di sistemi</title>
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+</head>
+<body id="body">
+    <div class="main-container" id="main">
+        <a onclick="changeTheme()">Cambia tema</a>
+        <h3 style="color: grey;">Francesco Levorin, <br> laboratorio di sistemi 4EB</h3>
+        <h1>Cancello Automatico</h1>
+        <h2 id="scopo"><a href="#scopo">scopo dell'esperienza</a></h2>
+        <p>Lo scopo dell'esperienza è realizzare il firmware di un cancello automatico capace di evitare possibili ostacoli, di regolare la velocità, e di segnalare il movimento attraverso il lampeggio di una lampada.</p>
+        <br>
+        <h2 id="componenti"><a href="#componenti">componenti utilizzati</a></h2>
+        <table class="tabellalella">
+            <tr>
+                <th>Quantità</th>
+                <th>Componente</th>
+                <th>Variante</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Arduino</td>
+                <td>UNO</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Transistor</td>
+                <td>NPN (BJT)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Transistor</td>
+                <td>PNP (BJT)</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Batteria</td>
+                <td>9 volt</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Led</td>
+                <td>Verde</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Led</td>
+                <td>Rosso</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Led</td>
+                <td>Giallo</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Led</td>
+                <td>Blu</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Lampadina</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Sensore</td>
+                <td>Fotocellula</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Motore</td>
+                <td>CC</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Resistenza</td>
+                <td>330 Ohm</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Resistenza</td>
+                <td>1 KOhm</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Interruttori</td>
+                <td>Scorrimento</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Pulsanti</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Potenziometro</td>
+                <td>250 KOhm</td>
+            </tr>
+        </table>
+        <p><span style="text-transform: uppercase;">è</span> importante precisare che in questo ambito sperimentale gli interruttori a scorrimento sono utilizzati come se fossero i finecorsa. Inoltre i led sono stati messi per verificare il corretto funzionamento degli output</p>
+        <br>
+        <h2 id="teoria"><a href="#teoria">cenni teorici</a></h2>
+        <p>Il funzionamento del cancello si può schematizzare attraverso il seguente diagramma:</p>
+        <img src="cancello.svg" alt="Immagine non disponibile!">
+        <br>
+        <table class="tabellalella">
+            <tr>
+                <th>Abbreviazione</th>
+                <th>Significato</th>
+            </tr>
+            <tr>
+                <td>TC</td>
+                <td>Tasto chiusura</td>
+            </tr>
+            <tr>
+                <td>TA</td>
+                <td>Tasto apertura</td>
+            </tr>
+            <tr>
+                <td>FC</td>
+                <td>Finecorsa cancello chiuso</td>
+            </tr>
+            <tr>
+                <td>FA</td>
+                <td>Finecorsa cancello aperto</td>
+            </tr>
+            <tr>
+                <td>SM</td>
+                <td>Fotocellula</td>
+            </tr>
+        </table>
+        <p>Come si può osservare dal diagramma, il programma segue lo schema della macchina a stati finiti di Moore, infatti l'output dipende dallo stato.</p>
+        <h2 id="schema"><a href="#schema">schema del circuito</a></h2>
+        <img src="schema.png" alt="Immagine non disponibile!" class="schema">
+        <h2 id="spiegazione"><a href="#spiegazione">spiegazione del codice</a></h2>
+        <button onclick="togglePopup()" id="btnn">Mostra codice</button>
+        <br>
+        <p>Prima di ogni funzione ci sono le direttive per il preprocessore (quelle che iniziano per #) define, per associare un nome ad un numero di pin. Di seguito troviamo le creazioni dei tipi di variabile <strong>stati</strong> e <strong>stati_lampada</strong>, seguiti dalle dichiarazioni delle variabili.</p>
+        <p>Il programma è diviso principalmente da due funzioni, <strong>setup</strong> e <strong>loop</strong>, predefinite dell'Arduino.</p>
+        <p>La prima viene eseguita quando l'Arduino viene acceso o resettato, nella quale appunto vengono inserite le operazioni da compiere all'inizio, come in questo caso la definizione dell'utilizzo di ogni pin (input o output), l'assegnazione dello stato iniziale (chiuso e spento) e infine l'assegnazione del valore iniziale di velocità dettato dal potenziometro.</p>
+        <p>Successivamente troviamo la funzione loop, la quale è un ciclo che dura per tutto il periodo di accensione del microcontrollore. Nel loop si trovano due switch per ogni uscita, ovvero due per comandare il motore e due per comandare la lampada.</p>
+        <p>Si utilizzano gli switch perché è la corrispondenza più prossima alla macchina a stati finiti nel linguaggio C. Infatti il primo switch e il secondo sono reciprocamente per il motore e per la lampada, attivati solo in caso si debbano effettuare azioni negli output (difatti sono contenuti dentro degli if che controllano la variabile booleana isActionRequired e isActionRequiredl).</p>
+        <p>Infine gli ultimi due switch vengono raggiunti ogni iterazione del loop, e dettano quando cambiare stato e quindi output, rendendo vere le variabili isActionRequired o isActionRequiredl.</p>
+        <p>Il codice è inoltre commentato per facilitare la comprensione</p>
+
+    </div>
+    <button class="floatn-btn" onclick="window.location.href = '#main'" id="tornasu">
+        Torna su
+    </button>
+    <div class="codice-popup" id="popup">
+        <div class="popup">
+            <span style="float: left; font-size: 20px;">Codice intero</span>
+            <span style="float: right;" onclick="togglePopup()"><a>chiudi</a></span>
+        </div>
+        <div class="code-body">
+            <script src="https://gist.github.com/Frankigeno/40e31e358c370c63f3ca4c8724a2fb48.js"></script>
+        </div>
+    </div>
+</body>
+<script>
+    let currentTheme = 0;
+    let isPopshwd = 0;
+    function changeTheme()
+    {
+        currentTheme = 1 - currentTheme;
+        document.getElementById("main").style.backgroundColor = ["white", "rgb(26, 26, 26)"][currentTheme];
+        document.getElementById("body").style.backgroundColor = ["rgb(241, 241, 241)", "black"][currentTheme];
+        document.getElementById("main").style.color = ["black", "white"][currentTheme];
+        document.getElementById("btnn").style.color = ["black", "white"][currentTheme];
+        document.getElementById("btnn").style.borderColor = ["black", "white"][currentTheme];
+        document.getElementById("tornasu").style.color = ["black", "white"][currentTheme];
+        document.getElementById("tornasu").style.backgroundColor = ["white", "rgb(26, 26, 26)"][currentTheme];
+    }
+
+    function togglePopup()
+    {
+        isPopshwd = 100 - isPopshwd;
+        document.getElementById("popup").style.opacity = isPopshwd
+        if (isPopshwd == 100)
+        {
+            document.getElementById("main").style.filter = "blur(2px)";
+            document.getElementById("body").style.overflowY = "hidden";
+            document.getElementById("popup").style.overflowY = "scroll";
+            document.getElementById("popup").style.zIndex = "1"
+        } else {
+            document.getElementById("main").style.filter = "blur(0px)";
+            document.getElementById("body").style.overflowY = "scroll";
+            document.getElementById("popup").style.overflowY = "hidden"
+            document.getElementById("popup").style.zIndex = "-100"
+        }
+    }
+</script>
+</html>
